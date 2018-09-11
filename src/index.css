@@ -21,5 +21,12 @@ body {
   background-color: green;
 }
 .adminPanel {
-  background-color: tan;
+  background-color: black;
+  padding: 10px;
+}
+.adminPanel label {
+  margin-left: 40px;
+}
+.adminPanel input[type="checkbox"] {
+  margin-left: 20px;
 }
