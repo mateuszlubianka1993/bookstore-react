@@ -4,17 +4,21 @@ import Order from './Order';
 import Header from './Header';
 import Inventory from './Inventory';
 
+import '../index.css';
+
 class App extends React.Component {
 
     render() {
         return (
-            <div>
+            <div className='app container'>
                 <Header />
-                <Order />
-                <Inventory />
-                <AdminPanel />
+                <dic className='row'>
+                    <Order />
+                    <Inventory />
+                    <AdminPanel />
+                </dic>
             </div>
-        )
+        );
     }
 }
 
