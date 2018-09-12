@@ -12,11 +12,11 @@ class App extends React.Component {
         return (
             <div className='app container'>
                 <Header />
-                <dic className='row'>
+                <div className='row'>
                     <Order />
                     <Inventory />
                     <AdminPanel />
-                </dic>
+                </div>
             </div>
         );
     }
