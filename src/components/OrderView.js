@@ -11,7 +11,7 @@ export default class OrderView extends React.Component {
                 </div>
                 <div className="col-md-4">
                     <button className="btn btn-danger" onClick={(event) => this.props.removeFromOrder(this.props.book.name)}>Remove</button>
-                </div>
+                </div> 
             </div>
         );
     }
