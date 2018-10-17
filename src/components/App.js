@@ -3,6 +3,7 @@ import React from 'react';
 import Order from './Order';
 import Header from './Header';
 import Inventory from './Inventory';
+import Footer from './Footer';
 
 import '../index.css';
 
@@ -39,6 +40,7 @@ class App extends React.Component {
                     <Inventory books={this.state.books} addToOrder={this.addToOrder} />
                     
                 </div>
+                <Footer />
             </div>
         );
     }
