@@ -8,6 +8,7 @@ export default class BookView extends React.Component {
             <div className="bookView row">
                 <div className="col-md-4">
                     <img src={this.props.book.image} width="75" height="100" alt={this.props.book.name}/>
+                    <i>{this.props.book.genre}</i>
                 </div>
                 <div className="col-md-4">
                     <b>{this.props.book.name}</b><br/>

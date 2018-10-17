@@ -1,32 +1,23 @@
 import React from 'react';
-import {fbase, firebaseApp} from '../fbase';
+import {firebaseApp} from '../fbase';
 
 class AddBookForm extends React.Component {
 
     constructor() {
         super();
         this.state = {
-            books: [],
             book: {
                 name: "",
                 author: "",
                 description: "",
                 onStock: true,
-                image: ""
+                image: "",
+                genre: ""
             }
         }
     }
 
-    componentDidMount() {
-        this.ref = fbase.syncState('bookstore/books', {
-            context: this,
-            state: 'books'
-        });
-    }
-
-    componentWillUnmount() {
-        fbase.removeBinding(this.ref);
-    }
+    
 
     handleChange = (event) => {
         let newBook;
@@ -54,14 +45,16 @@ class AddBookForm extends React.Component {
 
         let newBook = { ...this.state.book };
 
+        this.props.addNewBook(newBook);
+
         this.setState({
-            books: [...this.state.books, newBook],
             book: {
                 name: "",
                 author: "",
                 description: "",
                 onStock: true,
-                image: ""
+                image: "",
+                genre: ""
             }
         });
     }
@@ -89,6 +82,9 @@ class AddBookForm extends React.Component {
                             </div>
                             <div className="form-group">
                                 <textarea placeholder="Book description" id="description" name="description" onChange={this.handleChange} value={this.state.book.description} className="form-control" />
+                            </div>
+                            <div className="form-group">
+                                <input type="text" placeholder="Book genre" id="genre" name="genre" onChange={this.handleChange} value={this.state.book.genre} className="form-control" />
                             </div>
                             <div className="form-group">
                                 <input type="checkbox" id="onStock" name="onStock" onChange={this.handleChange} value={this.state.book.onStock} className="form-check-input" />
