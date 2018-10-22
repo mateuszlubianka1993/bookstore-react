@@ -19,8 +19,19 @@ class AdminPanel extends React.Component {
 
     changeLoggedIn = (newValue) => this.setState({loggedIn: newValue})
 
-    addNewBook = (book) => this.setState({books : [...this.state.books, book]}) 
-
+    addNewBook = (book) => {
+     
+        if(Array.isArray(this.state.books)) {
+            this.setState({
+                books : [...this.state.books, book]
+            })
+        } else {
+            this.setState({
+                books : [book]
+            })
+        }
+         
+    }
     componentDidMount() {
         this.ref = fbase.syncState('bookstore/books', {
             context: this,
