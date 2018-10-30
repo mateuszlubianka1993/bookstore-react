@@ -23,6 +23,7 @@ class Inventory extends React.Component {
 
     render() {
         let bookListing = <h4>No books on stock, sorry.</h4>
+    
 
         if(Array.isArray(this.state.books)) {
                 bookListing = this.state.books.map( book => {

@@ -1,7 +1,8 @@
 import React from 'react';
 import {firebaseApp} from '../fbase';
+import {connect} from "react-redux"; 
 
-class AddBookForm extends React.Component {
+class AddBook extends React.Component {
 
     constructor() {
         super();
@@ -24,38 +25,36 @@ class AddBookForm extends React.Component {
 
         if (event.target.name === "onStock") {
             newBook = {
-                ...this.state.book,
+                ...this.props.book,
                 [event.target.name]: event.target.checked
             };
         } else {
             newBook = {
-                ...this.state.book,
+                ...this.props.book,
                 [event.target.name]: event.target.value
             };
         }
 
-        this.setState({
-            book: newBook,
-
-        });
+        this.props.updateBook(newBook);
     }
 
     addNewBook = (event) => {
         event.preventDefault();
 
-        let newBook = { ...this.state.book };
+        let newBook = { ...this.props.book };
 
         this.props.addNewBook(newBook);
 
-        this.setState({
-            book: {
+        this.props.updateBook({
+            
                 name: "",
                 author: "",
                 description: "",
                 onStock: true,
                 image: "",
-                genre: ""
-            }
+                genre: "",
+                price: ""
+            
         });
     }
 
@@ -75,23 +74,26 @@ class AddBookForm extends React.Component {
             <div className="adminPanel col-md-4">
                         <form onSubmit={this.addNewBook}>
                             <div className="form-group">
-                                <input type="text" placeholder="Book name" id="name" name="name" className="form-control" onChange={this.handleChange} value={this.state.book.name} />
+                                <input type="text" placeholder="Book name" id="name" name="name" className="form-control" onChange={this.handleChange} value={this.props.book.name} />
                             </div>
                             <div className="form-group">
-                                <input type="text" placeholder="Book author" id="author" name="author" onChange={this.handleChange} value={this.state.book.author} className="form-control" />
+                                <input type="text" placeholder="Book author" id="author" name="author" onChange={this.handleChange} value={this.props.book.author} className="form-control" />
                             </div>
                             <div className="form-group">
-                                <textarea placeholder="Book description" id="description" name="description" onChange={this.handleChange} value={this.state.book.description} className="form-control" />
+                                <textarea placeholder="Book description" id="description" name="description" onChange={this.handleChange} value={this.props.book.description} className="form-control" />
                             </div>
                             <div className="form-group">
-                                <input type="text" placeholder="Book genre" id="genre" name="genre" onChange={this.handleChange} value={this.state.book.genre} className="form-control" />
+                                <input type="text" placeholder="Book genre" id="genre" name="genre" onChange={this.handleChange} value={this.props.book.genre} className="form-control" />
                             </div>
                             <div className="form-group">
-                                <input type="checkbox" id="onStock" name="onStock" onChange={this.handleChange} value={this.state.book.onStock} className="form-check-input" />
+                                <input type="number" placeholder="Book price" id="price" name="price" onChange={this.handleChange} value={this.props.book.price} className="form-control" />
+                            </div>
+                            <div className="form-group">
+                                <input type="checkbox" id="onStock" name="onStock" onChange={this.handleChange} value={this.props.book.onStock} className="form-check-input" />
                                 <label htmlFor="onStock" className="form-check-label">On stock</label>
                             </div>
                             <div className="form-group">
-                                <input type="text" placeholder="Book image" id="image" name="image" onChange={this.handleChange} value={this.state.book.image} className="form-control" />
+                                <input type="text" placeholder="Book image" id="image" name="image" onChange={this.handleChange} value={this.props.book.image} className="form-control" />
                             </div>
                             <button type="submit" className="btn btn-primary">Add</button>
                             
@@ -101,5 +103,19 @@ class AddBookForm extends React.Component {
         )
     }
 }
+
+const mapDispatchToProps = diapatch => {
+    return {
+        updateBook : book => diapatch({ type: 'UPDATE_BOOK', payload: book})
+    }
+}
+
+const mapStateToProps = state => {
+    return {
+        book : state.book
+    }
+}
+
+const AddBookForm = connect(mapStateToProps, mapDispatchToProps)(AddBook)
 
 export default AddBookForm;
